@@ -799,7 +799,7 @@ body {
   .main-content {
     margin-left: 0;
     padding-top: var(--topbar-height);
-    padding-bottom: 64px;
+    padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
   }
 
   .tab-bar {
@@ -818,16 +818,32 @@ body {
     display: none;
   }
 
-  .ql-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
   .quick-launch {
     padding: 24px 16px;
+    overflow-y: auto;
   }
 
   .quick-launch h2 {
     font-size: 1.3rem;
+  }
+
+  .ql-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .mobile-menu-btn {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .mob-nav-item {
+    min-height: 44px;
+    padding: 6px 8px;
+  }
+
+  .ql-btn {
+    min-height: 52px;
+    padding: 14px 28px;
   }
 }
 

@@ -36,3 +36,6 @@ snapshot_blob.bin
 v8_context_snapshot.bin
 vk_swiftshader_icd.json
 version
+
+# Superpowers brainstorm sessions
+.superpowers/
