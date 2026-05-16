@@ -192,7 +192,7 @@ function openTab(platformId, forceNew = false) {
     // → afficher directement le quick-launch
     loader.classList.add('hidden');
     view.style.display = 'none';
-    ql.style.display = 'flex';
+    ql.style.cssText = 'display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;padding:40px;text-align:center;background:var(--bg-dark);width:100%;';
   }
 
   // ── Créer l'élément tab dans la barre ──
@@ -237,7 +237,7 @@ function activateTab(tabId) {
   });
 
   // Afficher le bon
-  tab.wrapper.style.display = 'block';
+  tab.wrapper.style.cssText = 'position:absolute;inset:0;display:flex;flex-direction:column;background:var(--bg-dark);';
 
   // Mettre à jour les classes tab
   document.querySelectorAll('.sh-tab').forEach(el => el.classList.remove('active'));
