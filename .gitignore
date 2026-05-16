@@ -1,0 +1,39 @@
+# Données sensibles
+config.js
+
+# Cache navigateur / PWA
+*.cache
+
+# Système
+.DS_Store
+Thumbs.db
+desktop.ini
+.antigravityignore
+
+# Éditeurs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Sauvegardes temporaires
+*.bak
+*.tmp
+*.fixed
+
+# ── Binaires Electron (trop lourds pour GitHub) ──
+*.exe
+*.dll
+*.pak
+*.bin
+*.dat
+*.html
+LICENSES.chromium.html
+locales/
+snapshot_blob.bin
+v8_context_snapshot.bin
+vk_swiftshader_icd.json
+version

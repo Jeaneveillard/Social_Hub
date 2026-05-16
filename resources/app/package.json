@@ -1,0 +1,7 @@
+{
+  "name": "SocialHub",
+  "productName": "Social Hub",
+  "version": "1.0.0",
+  "description": "Plateforme centralisée",
+  "main": "main.js"
+}
