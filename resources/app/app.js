@@ -170,37 +170,28 @@ function openTab(platformId, forceNew = false) {
   frameContainer.appendChild(wrapper);
 
   // ── Loader events ──
-  if (platform.embeddable) {
-    if (IS_ELECTRON) {
-      view.addEventListener('did-finish-load', () => {
-        loader.classList.add('hidden');
-        view.style.display = 'flex';
-      });
-      view.addEventListener('did-fail-load', () => {
-        loader.classList.add('hidden');
-        view.style.display = 'none';
-        ql.style.display = 'flex';
-      });
-    } else {
-      view.addEventListener('load', () => {
-        loader.classList.add('hidden');
-        view.style.display = 'block';
-      });
-      view.addEventListener('error', () => {
-        loader.classList.add('hidden');
-        view.style.display = 'none';
-        ql.style.display = 'flex';
-      });
-    }
-    // Fallback 8 secondes
+  if (IS_ELECTRON && platform.embeddable) {
+    // Electron webview : peut charger les sites normalement
+    view.addEventListener('did-finish-load', () => {
+      loader.classList.add('hidden');
+      view.style.display = 'flex';
+    });
+    view.addEventListener('did-fail-load', () => {
+      loader.classList.add('hidden');
+      view.style.display = 'none';
+      ql.style.display = 'flex';
+    });
     setTimeout(() => {
       if (!loader.classList.contains('hidden')) {
         loader.classList.add('hidden');
-        view.style.display = IS_ELECTRON ? 'flex' : 'block';
+        view.style.display = 'flex';
       }
     }, 8000);
   } else {
+    // Mode navigateur web : les sites bloquent les iframes (X-Frame-Options)
+    // → afficher directement le quick-launch
     loader.classList.add('hidden');
+    view.style.display = 'none';
     ql.style.display = 'flex';
   }
 
