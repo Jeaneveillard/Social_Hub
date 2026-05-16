@@ -1,7 +1,10 @@
 /* ===================================
    Social Hub — Tab-based navigation
-   Chaque onglet = une webview indépendante
+   Chaque onglet = une webview (Electron) ou iframe (web)
    =================================== */
+
+// Détection Electron vs navigateur web
+const IS_ELECTRON = navigator.userAgent.toLowerCase().includes('electron');
 
 // ===== PLATFORM DEFINITIONS =====
 const PLATFORMS = {
@@ -121,11 +124,19 @@ function openTab(platformId, forceNew = false) {
 
   const tabId = nextTabId++;
 
-  // ── Créer la webview ──
-  const webview = document.createElement('webview');
-  webview.setAttribute('allowpopups', '');
-  webview.src = platform.embeddable ? platform.url : 'about:blank';
-  webview.style.cssText = `
+  // ── Créer la webview ou iframe selon l'environnement ──
+  let view;
+  if (IS_ELECTRON) {
+    view = document.createElement('webview');
+    view.setAttribute('allowpopups', '');
+    view.src = platform.embeddable ? platform.url : 'about:blank';
+  } else {
+    view = document.createElement('iframe');
+    view.src = platform.embeddable ? platform.url : 'about:blank';
+    view.setAttribute('allowfullscreen', '');
+    view.setAttribute('allow', 'camera; microphone; clipboard-write; encrypted-media; fullscreen');
+  }
+  view.style.cssText = `
     position: absolute; inset: 0;
     width: 100%; height: 100%;
     border: none; background: #fff;
@@ -154,27 +165,38 @@ function openTab(platformId, forceNew = false) {
     background: var(--bg-dark);
   `;
   wrapper.appendChild(loader);
-  wrapper.appendChild(webview);
+  wrapper.appendChild(view);
   wrapper.appendChild(ql);
   frameContainer.appendChild(wrapper);
 
   // ── Loader events ──
   if (platform.embeddable) {
-    webview.addEventListener('did-finish-load', () => {
-      loader.classList.add('hidden');
-      webview.style.display = 'flex';
-    });
-    webview.addEventListener('did-fail-load', () => {
-      loader.classList.add('hidden');
-      // Afficher quick-launch si chargement échoue
-      webview.style.display = 'none';
-      ql.style.display = 'flex';
-    });
+    if (IS_ELECTRON) {
+      view.addEventListener('did-finish-load', () => {
+        loader.classList.add('hidden');
+        view.style.display = 'flex';
+      });
+      view.addEventListener('did-fail-load', () => {
+        loader.classList.add('hidden');
+        view.style.display = 'none';
+        ql.style.display = 'flex';
+      });
+    } else {
+      view.addEventListener('load', () => {
+        loader.classList.add('hidden');
+        view.style.display = 'block';
+      });
+      view.addEventListener('error', () => {
+        loader.classList.add('hidden');
+        view.style.display = 'none';
+        ql.style.display = 'flex';
+      });
+    }
     // Fallback 8 secondes
     setTimeout(() => {
       if (!loader.classList.contains('hidden')) {
         loader.classList.add('hidden');
-        webview.style.display = 'flex';
+        view.style.display = IS_ELECTRON ? 'flex' : 'block';
       }
     }, 8000);
   } else {
@@ -203,7 +225,7 @@ function openTab(platformId, forceNew = false) {
   document.getElementById('tabList').appendChild(tabEl);
 
   // ── Enregistrer l'onglet ──
-  tabs.push({ id: tabId, platformId, webview, tabEl, wrapper });
+  tabs.push({ id: tabId, platformId, view, tabEl, wrapper });
 
   // ── Activer ──
   activateTab(tabId);
@@ -340,8 +362,8 @@ function refreshFrame() {
   if (!tab) return;
   const loader = tab.wrapper.querySelector('.frame-loader');
   if (loader) loader.classList.remove('hidden');
-  tab.webview.style.display = 'none';
-  tab.webview.src = tab.webview.src; // reload
+  tab.view.style.display = 'none';
+  tab.view.src = tab.view.src; // reload
 }
 
 function openExternalTab() {
