@@ -30,7 +30,6 @@ desktop.ini
 *.pak
 *.bin
 *.dat
-*.html
 LICENSES.chromium.html
 locales/
 snapshot_blob.bin

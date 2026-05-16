@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Social Hub — Centralisez tous vos réseaux sociaux en un seul endroit.">
+    <title>Social Hub — Réseaux Sociaux</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+            <div class="logo-icon"><i class="fa-solid fa-globe"></i></div>
+            <span class="logo-text">Social <span>Hub</span></span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-section-label">Réseaux sociaux</div>
+
+            <button class="nav-item active" data-platform="youtube" onclick="switchPlatform('youtube')">
+                <div class="nav-icon" style="--accent:#ff0000"><i class="fa-brands fa-youtube"></i></div>
+                <span>YouTube</span>
+                <div class="nav-indicator"></div>
+            </button>
+
+            <button class="nav-item" data-platform="facebook" onclick="switchPlatform('facebook')">
+                <div class="nav-icon" style="--accent:#1877f2"><i class="fa-brands fa-facebook-f"></i></div>
+                <span>Facebook</span>
+                <div class="nav-indicator"></div>
+            </button>
+
+            <button class="nav-item" data-platform="instagram" onclick="switchPlatform('instagram')">
+                <div class="nav-icon" style="--accent:#e4405f"><i class="fa-brands fa-instagram"></i></div>
+                <span>Instagram</span>
+                <div class="nav-indicator"></div>
+            </button>
+
+            <button class="nav-item" data-platform="tiktok" onclick="switchPlatform('tiktok')">
+                <div class="nav-icon" style="--accent:#000000"><i class="fa-brands fa-tiktok"></i></div>
+                <span>TikTok</span>
+                <div class="nav-indicator"></div>
+            </button>
+
+            <button class="nav-item" data-platform="twitter" onclick="switchPlatform('twitter')">
+                <div class="nav-icon" style="--accent:#000000"><i class="fa-brands fa-x-twitter"></i></div>
+                <span>X (Twitter)</span>
+                <div class="nav-indicator"></div>
+            </button>
+
+            <button class="nav-item" data-platform="linkedin" onclick="switchPlatform('linkedin')">
+                <div class="nav-icon" style="--accent:#0a66c2"><i class="fa-brands fa-linkedin-in"></i></div>
+                <span>LinkedIn</span>
+                <div class="nav-indicator"></div>
+            </button>
+
+            <button class="nav-item" data-platform="whatsapp" onclick="switchPlatform('whatsapp')">
+                <div class="nav-icon" style="--accent:#25d366"><i class="fa-brands fa-whatsapp"></i></div>
+                <span>WhatsApp</span>
+                <div class="nav-indicator"></div>
+            </button>
+
+            <button class="nav-item" data-platform="messenger" onclick="switchPlatform('messenger')">
+                <div class="nav-icon" style="--accent:#0084ff"><i class="fa-brands fa-facebook-messenger"></i></div>
+                <span>Messenger</span>
+                <div class="nav-indicator"></div>
+            </button>
+
+            <div class="nav-section-label" style="margin-top:18px;">Outils</div>
+
+            <button class="nav-item" data-platform="gmail" onclick="switchPlatform('gmail')">
+                <div class="nav-icon" style="--accent:#ea4335"><i class="fa-solid fa-envelope"></i></div>
+                <span>Gmail</span>
+                <div class="nav-indicator"></div>
+            </button>
+
+            <button class="nav-item" data-platform="drive" onclick="switchPlatform('drive')">
+                <div class="nav-icon" style="--accent:#4285f4"><i class="fa-brands fa-google-drive"></i></div>
+                <span>Google Drive</span>
+                <div class="nav-indicator"></div>
+            </button>
+
+            <button class="nav-item" data-platform="maps" onclick="switchPlatform('maps')">
+                <div class="nav-icon" style="--accent:#34a853"><i class="fa-solid fa-map-location-dot"></i></div>
+                <span>Google Maps</span>
+                <div class="nav-indicator"></div>
+            </button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="../index.html" class="back-link">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Retour KZO</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- ===== MOBILE TOP BAR ===== -->
+    <div class="mobile-topbar" id="mobileTopbar">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleSidebar()">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="mobile-logo">Social <span>Hub</span></div>
+        <div class="mobile-platform-name" id="mobilePlatformName">YouTube</div>
+    </div>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content" id="mainContent">
+
+        <!-- ===== TAB BAR ===== -->
+        <div class="tab-bar" id="tabBar">
+            <div class="tab-list" id="tabList"></div>
+            <button class="tab-new-btn" id="tabNewBtn" title="Nouvel onglet" onclick="openNewTab()">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+        </div>
+
+        <!-- Top toolbar -->
+        <div class="toolbar" id="toolbar">
+            <div class="toolbar-left">
+                <div class="platform-badge" id="platformBadge">
+                    <i class="fa-brands fa-youtube" id="platformIcon"></i>
+                    <span id="platformTitle">YouTube</span>
+                </div>
+            </div>
+            <div class="toolbar-center">
+                <div class="url-bar" id="urlBar">
+                    <i class="fa-solid fa-lock"></i>
+                    <span id="urlText">youtube.com</span>
+                </div>
+            </div>
+            <div class="toolbar-right">
+                <button class="toolbar-btn" onclick="refreshFrame()" title="Actualiser">
+                    <i class="fa-solid fa-rotate-right"></i>
+                </button>
+                <button class="toolbar-btn" onclick="openExternalTab()" title="Ouvrir en externe">
+                    <i class="fa-solid fa-up-right-from-square"></i>
+                </button>
+                <button class="toolbar-btn" onclick="goFullscreen()" title="Plein écran">
+                    <i class="fa-solid fa-expand"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Webviews container (multi-tab) -->
+        <div class="frame-container" id="frameContainer">
+            <!-- Webviews are injected here dynamically by app.js -->
+        </div>
+
+        <!-- Quick launch (shown on restricted platforms) -->
+        <div class="quick-launch" id="quickLaunch" style="display:none;">
+            <div class="ql-icon" id="qlIcon"><i class="fa-brands fa-youtube"></i></div>
+            <div class="ql-info-banner">
+                <i class="fa-solid fa-shield-halved"></i>
+                Ce site bloque l'intégration pour des raisons de sécurité
+            </div>
+            <h2 id="qlTitle">YouTube</h2>
+            <p id="qlDesc">Cliquez le bouton ci-dessous pour l'ouvrir dans un nouvel onglet.</p>
+            <a class="ql-btn" id="qlLink" href="https://www.youtube.com" target="_blank" rel="noopener">
+                <i class="fa-solid fa-up-right-from-square"></i>
+                Ouvrir YouTube
+            </a>
+            <div class="ql-shortcuts">
+                <h3>Accès rapide</h3>
+                <div class="ql-grid" id="qlGrid"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ===== MOBILE BOTTOM NAV ===== -->
+    <nav class="mobile-bottom-nav" id="mobileBottomNav">
+        <button class="mob-nav-item active" data-platform="youtube" onclick="switchPlatform('youtube')">
+            <i class="fa-brands fa-youtube"></i>
+            <span>YouTube</span>
+        </button>
+        <button class="mob-nav-item" data-platform="facebook" onclick="switchPlatform('facebook')">
+            <i class="fa-brands fa-facebook-f"></i>
+            <span>Facebook</span>
+        </button>
+        <button class="mob-nav-item" data-platform="instagram" onclick="switchPlatform('instagram')">
+            <i class="fa-brands fa-instagram"></i>
+            <span>Instagram</span>
+        </button>
+        <button class="mob-nav-item" data-platform="tiktok" onclick="switchPlatform('tiktok')">
+            <i class="fa-brands fa-tiktok"></i>
+            <span>TikTok</span>
+        </button>
+        <button class="mob-nav-item" data-platform="more" onclick="toggleSidebar()">
+            <i class="fa-solid fa-ellipsis"></i>
+            <span>Plus</span>
+        </button>
+    </nav>
+
+    <!-- ===== OVERLAY ===== -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
