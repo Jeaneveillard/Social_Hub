@@ -16,6 +16,14 @@ const PLATFORMS = {
     embeddable: true,
     domain: 'youtube.com'
   },
+  youtubemusic: {
+    name: 'YouTube Music',
+    icon: 'fa-solid fa-music',
+    url: 'https://music.youtube.com',
+    color: '#ff0000',
+    embeddable: true,
+    domain: 'music.youtube.com'
+  },
   facebook: {
     name: 'Facebook',
     icon: 'fa-brands fa-facebook-f',
